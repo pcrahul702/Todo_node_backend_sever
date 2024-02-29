@@ -38,12 +38,18 @@ todoRoutes.route("/update/:id").put(async(req,res)=>{
     console.log(todo)
     res.send(todo)
 })
+todoRoutes.route("/delete/:id").delete(async(req,res)=>{
+    let id=new ObjectId(req.params.id);
+    let todo=await db.collection("todos").deleteOne({_id:id})
+    console.log(todo)
+    res.send(todo)
+})
 async function connectToMongoAndStartServer(){
 await client.connect();
 db=client.db("todoApp");
 console.log("mongodb Connected")
-app.listen(3000,()=>{
-    console.log("server is running on 3000");
+app.listen(5000,()=>{
+    console.log("server is running on 5000");
 })
 }
 
